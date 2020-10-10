@@ -2,3 +2,6 @@
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+/arts/*
+/node_modules
