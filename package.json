@@ -4,12 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc && node lib/test/zhihu",
+    "build": "tsc",
+    "start": "tsc && node lib/index",
+    "watch": "tsc --watch"
   },
-  "author": "",
+  "author": "DaWinter",
   "license": "ISC",
+  "bin": {
+    "run": "lib/index.js"
+  },
   "dependencies": {
+    "@types/inquirer": "^7.3.3",
+    "@types/node": "^16.7.1",
     "axios": "^0.20.0",
-    "cheerio": "^1.0.0-rc.3"
+    "inquirer": "^8.1.2",
+    "typescript": "^4.3.5"
   }
 }
