@@ -7,7 +7,7 @@
  */
 
 let config: Config = {
-  waitTime: 2000,
+  waitTime: 4000,
 };
 
 export default config;
