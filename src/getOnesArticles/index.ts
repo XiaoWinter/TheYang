@@ -1,6 +1,7 @@
-import axios from "axios";
 import * as fs from "fs";
 import * as path from "path";
+
+import { formatTitle, waitRandom } from "../utils";
 
 import { getColumnById } from "../api/zhihu";
 
@@ -21,16 +22,21 @@ const params: Options = {
 
 async function getOnesArticles(booksID: string) {
   try {
+    console.log("params", params);
     let data = await getColumnById({ booksID, params });
 
     if (!data) return;
 
     const {
       data: artList,
-      paging: { is_end },
+      paging: { is_end, totals },
     } = data;
 
-    artList.forEach((articleInfo) => {
+    const { offset } = params;
+    console.log("is_end", is_end);
+    console.log("totals", totals);
+
+    artList.forEach((articleInfo, index) => {
       let {
         title,
         author: { name },
@@ -39,19 +45,19 @@ async function getOnesArticles(booksID: string) {
       title = formatTitle(title);
       name = formatTitle(name);
 
-      const dirPath = path.join("../../", __dirname, "arts", name);
+      const dirPath = path.join(__dirname, "../../", "arts", name);
 
       if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath, { recursive: true });
       }
       const filepath = path.join(dirPath, title + ".md");
-      console.log(`After获取 ${name}: ${title}`);
+      console.log(`获取专栏文章${index + offset + 1} ${name}: ${title}`);
       fs.writeFileSync(filepath, content);
     });
 
-    if (!is_end) {
+    if (!is_end && totals >= offset + 10) {
       params.offset += 10;
-      getOnesArticles(booksID);
+      waitRandom(getOnesArticles)(booksID);
     }
   } catch (error) {
     // console.log(error);
@@ -60,26 +66,8 @@ async function getOnesArticles(booksID: string) {
     );
     params.offset += 1;
     if (params.offset > 10000) return;
-    getOnesArticles(booksID);
+    waitRandom(getOnesArticles)(booksID);
   }
-}
-
-/**
- * @description: 将标题转化为可作为文件名的标题
- * @param {any} title
- * @return {*}
- */
-function formatTitle(title: any): string {
-  if (typeof title !== "string") return "空" + new Date().valueOf();
-
-  title = title.trim();
-
-  const patrn =
-    /[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]/gim;
-
-  title = title.replace(patrn, "");
-
-  return title;
 }
 
 // getOnesArticles("https://www.zhihu.com/api/v4/columns/yangpingreview/items");

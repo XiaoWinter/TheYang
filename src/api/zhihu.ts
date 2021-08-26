@@ -24,10 +24,7 @@ axios.interceptors.response.use(
  */
 export async function getColumnById(options: Options): Promise<ZhihuData> {
   let { booksID, params } = options;
-  params = params || {
-    limit: 10,
-    offset: 0,
-  };
+
   // https://www.zhihu.com/api/v4/columns/c_1371873380988166144/items
   return await axios.get(
     `https://www.zhihu.com/api/v4/columns/${booksID}/items`,

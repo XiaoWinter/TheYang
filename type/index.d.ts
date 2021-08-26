@@ -1,3 +1,6 @@
+/**
+ * @description: 专栏
+ */
 type ArticleInfo = {
   updated: number;
   is_labeled: boolean;
@@ -25,7 +28,9 @@ type ArticleInfo = {
   type: string;
   suggest_edit: object;
 };
-
+/**
+ * @description: 专栏接口返回
+ */
 type ZhihuData = {
   data: ArticleInfo[];
 
@@ -37,7 +42,16 @@ type ZhihuData = {
     next: string;
   };
 };
-
+/**
+ * @description: 普通配置对象
+ */
 type Options = {
   [key: string]: any;
+};
+
+/**
+ * @description: 配置文件类型
+ */
+type Config = {
+  waitTime?: number;
 };
