@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && node lib/test/zhihu",
     "build": "tsc",
-    "start": "tsc && node lib/index",
+    "test": "yarn build && node lib/test/zhihu",
+    "start": "node lib/index",
     "watch": "tsc --watch"
   },
   "author": "DaWinter",

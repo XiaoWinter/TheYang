@@ -7,7 +7,19 @@ yarn
 ```
 
 ```
+yarn build
+```
+
+```
 yarn start
 ```
 
-奇怪，我这里用不了了
+或者 使用命令执行
+
+```
+npm link
+```
+
+```
+run
+```

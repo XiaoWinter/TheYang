@@ -7,7 +7,7 @@ inquirer
     {
       type: "input",
       name: "booksID",
-      message: "请输入专栏ID",
+      message: "请输入专栏ID(回车获取默认专栏文章)",
     },
   ])
   .then((answers) => {
