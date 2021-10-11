@@ -28,7 +28,7 @@ export function waitRandom(func: Function, waitTime?: number): Function {
   let delay = config.waitTime || waitTime || 5000;
   return (...args: any) => {
     setTimeout(() => {
-      func(args);
+      func(...args);
     }, Math.random() * delay);
   };
 }
