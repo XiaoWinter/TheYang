@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import * as inquirer from "inquirer"
-import getOnesArticles from "./getOnesArticles"
-import {waitRandom} from "./utils"
+import * as inquirer from "inquirer";
+import getOnesArticles from "./getOnesArticles";
+import { waitRandom } from "./utils";
 inquirer
   .prompt([
     {
@@ -21,15 +21,16 @@ inquirer
       "c_1207740498943029248", // 林先生 林先生的学科笔记
       "c_1371873380988166144", // 林先生 中正书堂
       "c_202993109", // 霍华德 工程学之美
-    ]
-    const {booksID} = answers
+      "MRneoanderson", // neo anderson
+    ];
+    const { booksID } = answers;
 
     if (!booksID) {
-      defaultIDs.forEach((id) => waitRandom(getOnesArticles)(id))
+      defaultIDs.forEach((id) => waitRandom(getOnesArticles)(id));
     } else {
-      waitRandom(getOnesArticles)(booksID)
+      waitRandom(getOnesArticles)(booksID);
     }
   })
   .catch((error) => {
-    console.log(error)
-  })
+    console.log(error);
+  });
